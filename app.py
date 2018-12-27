@@ -15,15 +15,7 @@ from bokeh.models.widgets import Button, TextInput
 from bokeh.io import curdoc
 from flask import Flask, render_template, request, redirect
 
-
-# In[266]:
-
-
 app = Flask(__name__)
-
-
-# In[263]:
-
 
 @app.route('/')
 ticker_input = TextInput(placeholder="AAPL", title="Ticker:")
@@ -31,28 +23,16 @@ submit = Button(label="Submit")
 inputs = widgetbox([ticker_input, submit], width=200)
 output_file("index.html", title="Stock Closing Proces")
 show(inputs)
-submit.on_click(displayPlot(ticker_input.value.strip()))
+submit.on_click(displayPlot('AAPL')) #ticker_input.value.strip()
 curdoc().add_root(submit)
 
-
-# In[ ]:
-
-
 @app.route('/graph')
-
-
-# In[261]:
-
 
 def getData (ticker, year):
     datestart = '%d-01-01' %year
     dateend = '%d-12-31' %year
     response = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/Prices.json?ticker=%s&date.gte=%s&date.lte=%s&qopts.columns=ticker,date,open,close&api_key=oGPHaajGy6WuHobANi6p' %(ticker,datestart,dateend))
     return response
-
-
-# In[262]:
-
 
 def displayPlot(ticker):
     year = 2017
@@ -73,10 +53,6 @@ def displayPlot(ticker):
     script, div = components(p1)
 
     return render_template('graph.html')
-
-
-# In[ ]:
-
 
 if __name__ == '__main__':
   app.run(port=33507)
