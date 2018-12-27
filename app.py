@@ -1,9 +1,6 @@
 
 # coding: utf-8
 
-# In[265]:
-
-
 import requests
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -17,23 +14,23 @@ from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
-@app.route('/')
-ticker_input = TextInput(placeholder="AAPL", title="Ticker:")
-submit = Button(label="Submit")
-inputs = widgetbox([ticker_input, submit], width=200)
-output_file("index.html", title="Stock Closing Proces")
-show(inputs)
-submit.on_click(displayPlot('AAPL')) #ticker_input.value.strip()
-curdoc().add_root(submit)
-
-@app.route('/graph')
-
 def getData (ticker, year):
     datestart = '%d-01-01' %year
     dateend = '%d-12-31' %year
     response = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/Prices.json?ticker=%s&date.gte=%s&date.lte=%s&qopts.columns=ticker,date,open,close&api_key=oGPHaajGy6WuHobANi6p' %(ticker,datestart,dateend))
     return response
 
+@app.route('/')
+def input():
+	ticker_input = TextInput(placeholder="AAPL", title="Ticker:")
+	submit = Button(label="Submit")
+	inputs = widgetbox([ticker_input, submit], width=200)
+	output_file("index.html", title="Stock Closing Proces")
+	show(inputs)
+	submit.on_click(displayPlot('AAPL')) #ticker_input.value.strip()
+	curdoc().add_root(submit)
+
+@app.route('/graph')
 def displayPlot(ticker):
     year = 2017
     r = getData(ticker, year)
