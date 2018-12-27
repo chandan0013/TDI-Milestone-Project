@@ -19,17 +19,7 @@ def getData (ticker, year):
     response = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/Prices.json?ticker=%s&date.gte=%s&date.lte=%s&qopts.columns=ticker,date,open,close&api_key=oGPHaajGy6WuHobANi6p' %(ticker,datestart,dateend))
     return response
 
-@app.route('/')
-def input():
-	ticker_input = TextInput(placeholder="AAPL", title="Ticker:")
-	submit = Button(label="Submit")
-	inputs = widgetbox([ticker_input, submit], width=200)
-	output_file("index.html", title="Stock Closing Proces")
-	show(inputs)
-	submit.on_click(displayPlot('AAPL')) #ticker_input.value.strip()
-	curdoc().add_root(submit)
-
-@app.route('/graph')
+#@app.route('/graph')
 def displayPlot(ticker):
     year = 2017
     r = getData(ticker, year)
@@ -49,6 +39,16 @@ def displayPlot(ticker):
     script, div = components(p1)
 
     return render_template('graph.html')
+
+@app.route('/')
+def input():
+	ticker_input = TextInput(placeholder="AAPL", title="Ticker:")
+	submit = Button(label="Submit")
+	inputs = widgetbox([ticker_input, submit], width=200)
+	output_file("index.html", title="Stock Closing Proces")
+	show(inputs)
+	submit.on_click(displayPlot('AAPL')) #ticker_input.value.strip()
+	curdoc().add_root(submit)
 
 if __name__ == '__main__':
   app.run(port=33507)
