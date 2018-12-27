@@ -48,7 +48,7 @@ def input():
 	output_file("index.html", title="Stock Closing Proces")
 	show(inputs)
 #	submit.on_click(displayPlot('AAPL')) #ticker_input.value.strip()
-	curdoc().add_root(submit)
+#	curdoc().add_root(submit)
 
 if __name__ == '__main__':
   app.run(port=33507)
