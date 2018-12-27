@@ -3,7 +3,6 @@
 
 import requests
 import pandas as pd
-import matplotlib.pyplot as plt
 import bokeh
 from bokeh.layouts import column, widgetbox
 from bokeh.plotting import figure, show, output_file
