@@ -42,7 +42,8 @@ def getData (ticker, year):
 
 @app.route('/')
 def input():
-	ticker_input = TextInput(placeholder="AAPL", title="Ticker:")
+	return 'Hello World!'
+	#ticker_input = TextInput(placeholder="AAPL", title="Ticker:")
 	#submit = Button(label="Submit")
 	#inputs = widgetbox([ticker_input, submit], width=200)
 	#output_file("index.html", title="Stock Closing Proces")
