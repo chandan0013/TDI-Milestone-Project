@@ -38,7 +38,7 @@ def displayPlot(ticker):
     #output_file("stocks.html", title="Stock Closing Proces")
     script, div = components(p1)
 
-    return render_template('graph.html')
+    #return render_template('graph.html')
 
 @app.route('/')
 def input():
