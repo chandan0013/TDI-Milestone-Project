@@ -20,23 +20,23 @@ def getData (ticker, year):
     return response
 
 #@app.route('/graph')
-def displayPlot(ticker):
-    year = 2017
-    r = getData(ticker, year)
-    df = pd.DataFrame(r.json()['datatable']['data'])
-    df.columns = pd.DataFrame(r.json()['datatable']['columns'])['name']
-    df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
-    source = ColumnDataSource(df)
-    p1 = figure(x_axis_type="datetime", title="Quandl WIKI Stock Closing Prices - %d" %year)
-    p1.grid.grid_line_alpha=2.0
-    p1.xaxis.axis_label = 'Date'
-    p1.yaxis.axis_label = 'Price'
+#def displayPlot(ticker):
+#    year = 2017
+#    r = getData(ticker, year)
+#    df = pd.DataFrame(r.json()['datatable']['data'])
+#    df.columns = pd.DataFrame(r.json()['datatable']['columns'])['name']
+#    df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
+#    source = ColumnDataSource(df)
+#    p1 = figure(x_axis_type="datetime", title="Quandl WIKI Stock Closing Prices - %d" %year)
+#    p1.grid.grid_line_alpha=2.0
+#    p1.xaxis.axis_label = 'Date'
+#    p1.yaxis.axis_label = 'Price'
 
-    p1.line('date', 'close', color='#0000FF', legend='%s: Closing Price' %ticker, source = source)
-    p1.legend.location = "top_left"
+#    p1.line('date', 'close', color='#0000FF', legend='%s: Closing Price' %ticker, source = source)
+#    p1.legend.location = "top_left"
 
     #output_file("stocks.html", title="Stock Closing Proces")
-    script, div = components(p1)
+#    script, div = components(p1)
 
     #return render_template('graph.html')
 
@@ -47,7 +47,7 @@ def input():
 	inputs = widgetbox([ticker_input, submit], width=200)
 	output_file("index.html", title="Stock Closing Proces")
 	show(inputs)
-	submit.on_click(displayPlot('AAPL')) #ticker_input.value.strip()
+#	submit.on_click(displayPlot('AAPL')) #ticker_input.value.strip()
 	curdoc().add_root(submit)
 
 if __name__ == '__main__':
