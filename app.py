@@ -21,10 +21,10 @@ def getData (ticker, year):
     return response
 
 @app.route('/graph')
-def displayPlot():#ticker):
+def displayPlot():
 	ticker = 'GOOG'
-    year = 2017
-    r = getData(ticker, year)
+	year = 2017
+	r = getData(ticker, year)
     df = pd.DataFrame(r.json()['datatable']['data'])
     df.columns = pd.DataFrame(r.json()['datatable']['columns'])['name']
     df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
