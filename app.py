@@ -41,18 +41,19 @@ def displayPlot():
 	df = pd.DataFrame(r.json()['datatable']['data'])
 	df.columns = pd.DataFrame(r.json()['datatable']['columns'])['name']
 	df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
-	source = ColumnDataSource(df)
-	p1 = figure(x_axis_type="datetime", title="Quandl WIKI Stock Closing Prices - %d" %year)
-	p1.grid.grid_line_alpha=2.0
-	p1.xaxis.axis_label = 'Date'
-	p1.yaxis.axis_label = 'Price'
+	print('Success!')
+#	source = ColumnDataSource(df)
+#	p1 = figure(x_axis_type="datetime", title="Quandl WIKI Stock Closing Prices - %d" %year)
+#	p1.grid.grid_line_alpha=2.0
+#	p1.xaxis.axis_label = 'Date'
+#	p1.yaxis.axis_label = 'Price'
 
-	p1.line('date', 'close', color='#0000FF', legend='%s: Closing Price' %ticker, source = source)
-	p1.legend.location = "top_left"
+#	p1.line('date', 'close', color='#0000FF', legend='%s: Closing Price' %ticker, source = source)
+#	p1.legend.location = "top_left"
 
-	script, div = components(p1)
+#	script, div = components(p1)
 
-	return render_template('graph.html', the_div = div, the_script = script)
+#	return render_template('graph.html', the_div = div, the_script = script)
 
     #output_file("stocks.html", title="Stock Closing Proces")
 #    script, div = components(p1)
