@@ -37,11 +37,11 @@ def index():
 def displayPlot():
 	ticker = 'GOOG'
 	year = 2017
-	so_good = 'so good!'
 	r = getData(ticker, year)
 	df = pd.DataFrame(r.json()['datatable']['data'])
 	df.columns = pd.DataFrame(r.json()['datatable']['columns'])['name']
 	df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
+	so_good = df['ticker'][1]#'so good!'
 	
 #	source = ColumnDataSource(df)
 	return render_template('graph.html', so_good = so_good)
