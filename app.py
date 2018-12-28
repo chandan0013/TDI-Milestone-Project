@@ -14,15 +14,17 @@ from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
+app.vars = {}
+
 def getData (ticker, year):
 	datestart = '%d-01-01' %year
 	dateend = '%d-12-31' %year
 	response = requests.get('https://www.quandl.com/api/v3/datatables/WIKI/Prices.json?ticker=%s&date.gte=%s&date.lte=%s&qopts.columns=ticker,date,open,close&api_key=oGPHaajGy6WuHobANi6p' %(ticker,datestart,dateend))
 	return response
 
-@app.route('/')
-def index():
-	return render_template('index.html')
+#@app.route('/')
+#def index():
+#	return render_template('index.html')
 #def input():
 #	ticker_input = TextInput(placeholder="AAPL", title="Ticker:")
 #	submit = Button(label="Submit")
@@ -33,17 +35,21 @@ def index():
 #	submit.on_click(displayPlot('AAPL')) #ticker_input.value.strip()
 #	curdoc().add_root(submit)
 
-@app.route('/graph')
+@app.route('/', methods=['GET','POST'])
+def index():
+	return render_template('index.html')
+
+@app.route('/graph', methods=['POST'])
 def displayPlot():
-	ticker = 'GOOG'
+	ticker = request.form['tickerText']
+	app.vars['ticker'] = ticker.upper()
 	year = 2017
-	r = getData(ticker, year)
+	r = getData(app.vars['ticker'], year)
 	df = pd.DataFrame(r.json()['datatable']['data'])
 	df.columns = pd.DataFrame(r.json()['datatable']['columns'])['name']
 	df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
 	so_good = df['close'][1]#'so good!'
-	df2 = pd.DataFrame({ 'A' : 1., 'B' : pd.Timestamp('20130102'), 'C' : pd.Series(1,index=list(range(4)),dtype='float32'), 'E' : pd.Categorical(["test","train","test","train"]), 'F' : 'foo' })
-	
+
 #	source = ColumnDataSource(df)
 #	src2 = ColumnDataSource(df2)
 #	return render_template('graph.html', so_good = so_good)
