@@ -40,12 +40,12 @@ def displayPlot():
 	r = getData(ticker, year)
 	df = pd.DataFrame(r.json()['datatable']['data'])
 	df.columns = pd.DataFrame(r.json()['datatable']['columns'])['name']
-	df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
+#	df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
 	so_good = df['close'][1]#'so good!'
 	df2 = pd.DataFrame({ 'A' : 1., 'B' : pd.Timestamp('20130102'), 'C' : pd.Series(1,index=list(range(4)),dtype='float32'), 'E' : pd.Categorical(["test","train","test","train"]), 'F' : 'foo' })
 	
-#	source = ColumnDataSource(df)
-	src2 = ColumnDataSource(df2)
+	source = ColumnDataSource(df)
+#	src2 = ColumnDataSource(df2)
 	return render_template('graph.html', so_good = so_good)
 #	p1 = figure(x_axis_type="datetime", title="Quandl WIKI Stock Closing Prices - %d" %year)
 #	p1.grid.grid_line_alpha=2.0
