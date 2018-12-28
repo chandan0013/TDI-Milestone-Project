@@ -19,9 +19,12 @@ def getData (ticker, year, price):
 
 def processData (ticker, year, price):
 	r = getData(ticker, year, price)
-	df = pd.DataFrame(r.json()['datatable']['data'])
-	df.columns = pd.DataFrame(r.json()['datatable']['columns'])['name']
-	df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
+	if r.json()['datatable']['data']:
+		df = pd.DataFrame(r.json()['datatable']['data'])
+		df.columns = pd.DataFrame(r.json()['datatable']['columns'])['name']
+		df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
+	else:
+		df = None
 	return df
 
 def makePlot (df, ticker, year, price):
@@ -40,17 +43,22 @@ def index():
 
 @app.route('/graph', methods=['POST'])
 def graph():
-	ticker, year, price = request.form['tickerInput'].upper(), int(request.form['yearInput']), request.form['priceInput']
-	df = processData(ticker, year, price)
-
-	if df.empty:
-		err = 'Uhoh! Something went wrong...'
-		return render_template('index.html', err=err)#redirect(url_for('index.html', err=err))
-
+	ticker, price = request.form['tickerInput'].upper(), request.form['priceInput']
+	
+	#Somewhat sloppy way of doing error checking...
+	if ticker == '' or request.form['yearInput'] == '':
+		df = None
 	else:
-		#script, div = makePlot(df, app.vars['ticker'], app.vars['year'])
+		year = int(request.form['yearInput'])	
+		df = processData(ticker, year, price)
+
+	if type(df) == pd.DataFrame:
 		script, div = makePlot(df, ticker, year, price)
 		return render_template('graph.html', div = div, script = script)
+		
+	else:
+		err = 'Uhoh! Something went wrong. :( Either we do not have data for that ticker/year combo or you entered an invalid ticker and/or year. Please enter a valid ticker and year.'
+		return render_template('index.html', err=err)#redirect(url_for('index.html', err=err))
 
 if __name__ == '__main__':
 	app.run(port=33507)
