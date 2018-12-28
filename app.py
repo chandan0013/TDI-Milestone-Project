@@ -54,8 +54,11 @@ def displayPlot():
 #	p1.line('date', 'close', color='#0000FF', legend='%s: Closing Price' %ticker, source = source)
 	p1.line(df.index,df['close'], color='#0000FF', legend='%s: Closing Price' %ticker)
 	p1.legend.location = "top_left"
+	
+	p2 = figure(x_axis_type="datetime")
+	p2.line([1,2,3],[1,2,3])
 
-	script, div = components(p1)
+	script, div = components(p2)
 
 	return render_template('graph.html', so_good = so_good, div = div, script = script)
 
