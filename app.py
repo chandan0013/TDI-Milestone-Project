@@ -40,7 +40,7 @@ def displayPlot():
 	r = getData(ticker, year)
 	df = pd.DataFrame(r.json()['datatable']['data'])
 	df.columns = pd.DataFrame(r.json()['datatable']['columns'])['name']
-#	df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
+	df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
 	so_good = df['close'][1]#'so good!'
 	df2 = pd.DataFrame({ 'A' : 1., 'B' : pd.Timestamp('20130102'), 'C' : pd.Series(1,index=list(range(4)),dtype='float32'), 'E' : pd.Categorical(["test","train","test","train"]), 'F' : 'foo' })
 	
