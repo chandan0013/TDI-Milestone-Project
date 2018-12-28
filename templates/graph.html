@@ -1,15 +1,13 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <title>Testing!</title>
-    <link href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.16.min.css" rel="stylesheet">
-    <link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.16.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.16.min.css" type="text/css" />
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.16.min.js"></script>
+    {{ script | safe }}
   </head>
   <body>
-    <h1>So far {{ so_good }} </h1>
-    {{ the_div|safe }}
-    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.16.min.js"></script>
-    <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.16.min.js"></script>
-    {{ the_script|safe }}
+    <div class=page>
+      <h1>Header text</h1>
+      {{ div | safe }}
+    </div>
   </body>
 </html>
