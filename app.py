@@ -44,11 +44,11 @@ def displayPlot():
 	df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
 	
 	source = ColumnDataSource(df)
-	p1 = figure(x_axis_type="datetime", title="Quandl WIKI Stock Closing Prices - %d" %year)
-	p1.grid.grid_line_alpha=2.0
-	p1.xaxis.axis_label = 'Date'
-	p1.yaxis.axis_label = 'Price'
 	return render_template('graph.html', so_good = so_good)
+#	p1 = figure(x_axis_type="datetime", title="Quandl WIKI Stock Closing Prices - %d" %year)
+#	p1.grid.grid_line_alpha=2.0
+#	p1.xaxis.axis_label = 'Date'
+#	p1.yaxis.axis_label = 'Price'
 #	p1.line('date', 'close', color='#0000FF', legend='%s: Closing Price' %ticker, source = source)
 #	p1.legend.location = "top_left"
 
@@ -63,5 +63,5 @@ def displayPlot():
 
 
 if __name__ == '__main__':
-	app.run(port=33507,debug=True)
+	app.run(port=33507)
 
