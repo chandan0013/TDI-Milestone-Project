@@ -41,7 +41,7 @@ def displayPlot():
 	df = pd.DataFrame(r.json()['datatable']['data'])
 	df.columns = pd.DataFrame(r.json()['datatable']['columns'])['name']
 	df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
-	so_good = df['ticker'][1]#'so good!'
+	so_good = df['close'][1]#'so good!'
 	
 #	source = ColumnDataSource(df)
 	return render_template('graph.html', so_good = so_good)
