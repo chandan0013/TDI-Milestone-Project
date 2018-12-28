@@ -41,7 +41,7 @@ def index():
 
 @app.route('/graph', methods=['POST'])
 def displayPlot():
-	ticker = request.form['tickerText']
+	ticker = request.form['tickerInput']
 	app.vars['ticker'] = ticker.upper()
 	year = 2017
 	r = getData(app.vars['ticker'], year)
