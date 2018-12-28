@@ -56,7 +56,7 @@ def displayPlot():
 
 	script, div = components(p1)
 
-	return render_template('graph.html', the_div = div, the_script = script)
+	return render_template('graph.html', so_good = so_good, the_div = div, the_script = script)
 
     #output_file("stocks.html", title="Stock Closing Proces")
 #    script, div = components(p1)
