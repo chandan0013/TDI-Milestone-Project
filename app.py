@@ -10,7 +10,6 @@ from bokeh.embed import components
 from bokeh.models.sources import ColumnDataSource
 from bokeh.models.widgets import Button, TextInput
 from bokeh.io import curdoc
-from bokeh.util.string import encode_utf8
 from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
@@ -45,20 +44,20 @@ def displayPlot():
 	so_good = df['close'][1]#'so good!'
 	df2 = pd.DataFrame({ 'A' : 1., 'B' : pd.Timestamp('20130102'), 'C' : pd.Series(1,index=list(range(4)),dtype='float32'), 'E' : pd.Categorical(["test","train","test","train"]), 'F' : 'foo' })
 	
-	source = ColumnDataSource(df)
+#	source = ColumnDataSource(df)
 #	src2 = ColumnDataSource(df2)
 #	return render_template('graph.html', so_good = so_good)
 	p1 = figure(x_axis_type="datetime", title="Quandl WIKI Stock Closing Prices - %d" %year)
 	p1.grid.grid_line_alpha=2.0
 	p1.xaxis.axis_label = 'Date'
 	p1.yaxis.axis_label = 'Price'
-	p1.line('date', 'close', color='#0000FF', legend='%s: Closing Price' %ticker, source = source)
+#	p1.line('date', 'close', color='#0000FF', legend='%s: Closing Price' %ticker, source = source)
+	p1.line(df.index,df['close'], color='#0000FF', legend='%s: Closing Price' %ticker)
 	p1.legend.location = "top_left"
 
 	script, div = components(p1)
 
-	page = render_template('graph.html', so_good = so_good, div = div, script = script)
-	return encode_utf8(page)
+	return render_template('graph.html', so_good = so_good, div = div, script = script)
 
     #output_file("stocks.html", title="Stock Closing Proces")
 #    script, div = components(p1)
