@@ -7,7 +7,7 @@ import bokeh
 from bokeh.layouts import column, widgetbox
 from bokeh.plotting import figure, show, output_file
 from bokeh.embed import components
-from bokeh.models import ColumnDataSource
+from bokeh.models.sources import ColumnDataSource
 from bokeh.models.widgets import Button, TextInput
 from bokeh.io import curdoc
 from flask import Flask, render_template, request, redirect
@@ -43,9 +43,9 @@ def displayPlot():
 	df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
 	so_good = df['close'][1]#'so good!'
 	
-	src = ColumnDataSource(df)
+	source = ColumnDataSource(df)
 	return render_template('graph.html', so_good = so_good)
-	p1 = figure(x_axis_type="datetime", title="Quandl WIKI Stock Closing Prices - %d" %year)
+#	p1 = figure(x_axis_type="datetime", title="Quandl WIKI Stock Closing Prices - %d" %year)
 #	p1.grid.grid_line_alpha=2.0
 #	p1.xaxis.axis_label = 'Date'
 #	p1.yaxis.axis_label = 'Price'
