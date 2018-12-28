@@ -37,12 +37,12 @@ def index():
 def displayPlot():
 	ticker = 'GOOG'
 	year = 2017
+	so_good = 'so good!'
 	r = getData(ticker, year)
 	df = pd.DataFrame(r.json()['datatable']['data'])
 	df.columns = pd.DataFrame(r.json()['datatable']['columns'])['name']
 	df.set_index(pd.DatetimeIndex(df['date']), inplace=True)
-	print('Success!')
-	return render_template('graph.html')
+	return render_template('graph.html', so_good = so_good)
 #	source = ColumnDataSource(df)
 #	p1 = figure(x_axis_type="datetime", title="Quandl WIKI Stock Closing Prices - %d" %year)
 #	p1.grid.grid_line_alpha=2.0
