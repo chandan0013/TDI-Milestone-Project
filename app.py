@@ -10,6 +10,7 @@ from bokeh.embed import components
 from bokeh.models.sources import ColumnDataSource
 from bokeh.models.widgets import Button, TextInput
 from bokeh.io import curdoc
+from bokeh.util.string import encode_utf8
 from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
@@ -56,7 +57,8 @@ def displayPlot():
 
 	script, div = components(p1)
 
-	return render_template('graph.html', so_good = so_good, div = div, script = script)
+	page = render_template('graph.html', so_good = so_good, div = div, script = script)
+	return encode_utf8(page)
 
     #output_file("stocks.html", title="Stock Closing Proces")
 #    script, div = components(p1)
