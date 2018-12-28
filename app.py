@@ -48,11 +48,10 @@ def displayPlot():
 	p1.grid.grid_line_alpha=2.0
 	p1.xaxis.axis_label = 'Date'
 	p1.yaxis.axis_label = 'Price'
-
+	return render_template('graph.html', so_good = so_good)
 	p1.line('date', 'close', color='#0000FF', legend='%s: Closing Price' %ticker, source = source)
 	p1.legend.location = "top_left"
 
-	return render_template('graph.html', so_good = so_good)
 #	script, div = components(p1)
 
 #	return render_template('graph.html', the_div = div, the_script = script)
